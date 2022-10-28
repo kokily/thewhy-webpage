@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import useHeaderScroll from '../../libs/hooks/common/useHeaderScroll';
 import { media } from '../../styles';
 import HeaderTop from './header/HeaderTop';
+import Navigation from './Navigation';
 
 export default function Header() {
   const { move } = useHeaderScroll();
@@ -12,7 +13,9 @@ export default function Header() {
         <HeaderTop />
       </HeaderContainer>
 
-      <NavContainer>Navigation</NavContainer>
+      <NavContainer>
+        <Navigation />
+      </NavContainer>
     </Container>
   );
 }
