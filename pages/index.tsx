@@ -1,7 +1,8 @@
 import type { NextPage } from 'next';
+import PageTemplate from '../components/common/PageTemplate';
 
-const IndexPage = () => {
-  return <div>IndexPage</div>;
+const IndexPage: NextPage = () => {
+  return <PageTemplate>IndexPage</PageTemplate>;
 };
 
 export default IndexPage;
