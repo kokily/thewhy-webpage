@@ -50,10 +50,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         strategy="beforeInteractive"
         src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"
       />
-      <Script
-        strategy="beforeInteractive"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cec30f2d8f996a53cca24b45925dea37&libraries=services"
-      />
       <GlobalStyle />
 
       <QueryClientProvider client={queryClient}>
@@ -64,6 +60,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </QueryClientProvider>
 
       <ToastContainer draggable={false} position="top-center" />
+      <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cec30f2d8f996a53cca24b45925dea37&libraries=services" />
     </SessionProvider>
   );
 }
