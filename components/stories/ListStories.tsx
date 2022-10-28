@@ -1,12 +1,25 @@
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import styled, { css } from 'styled-components';
 import useMedia from '../../libs/hooks/common/useMedia';
+import useListStories from '../../libs/hooks/stories/useListStories';
 import { media } from '../../styles';
+import Search from '../common/Search';
+import ListStoryCards from './list/ListStoryCards';
 
 export default function ListStories() {
   const { status } = useSession();
   const isSmall = useMedia('(max-width: 768px)');
+  const {
+    stories,
+    search,
+    onChange,
+    onSearch,
+    onKeyPress,
+    onTag,
+    onReadStory,
+    setTarget,
+  } = useListStories();
 
   return (
     <Container>
@@ -17,8 +30,27 @@ export default function ListStories() {
               <Button>글 작성</Button>
             </Link>
           )}
+
+          <Search
+            mode="제목"
+            search={search}
+            onChange={onChange}
+            onSearch={onSearch}
+            onKeyPress={onKeyPress}
+          />
         </SearchBox>
+
+        {stories.map((story) => (
+          <ListStoryCards
+            key={story.id}
+            story={story}
+            onReadStory={onReadStory}
+            onTag={onTag}
+          />
+        ))}
       </Contents>
+
+      <div ref={setTarget} />
     </Container>
   );
 }

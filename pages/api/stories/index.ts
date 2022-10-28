@@ -6,11 +6,6 @@ export default async function getListStoriesHandle(
   req: NextApiRequest,
   res: NextApiResponse<Story[]>
 ) {
-  type QueryType = {
-    title: string;
-    cursor: string;
-  };
-
   if (req.method === 'GET') {
     const title = req.query.title as string;
     const cursor = req.query.cursor ?? '';
