@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export async function imageUpload(file: File): Promise<string> {
-  const { data }: { data: { url: string } } = await axios.post('/api/images', {
+  const { data }: { data: { url: string } } = await axios.post('/api/image', {
     name: file.name,
     type: file.type,
   });
