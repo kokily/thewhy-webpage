@@ -6,6 +6,7 @@ export default async function readStoryHandle(
   res: NextApiResponse
 ) {
   const storyId = req.query.id as string;
+
   try {
     const story = await db.story.findUnique({
       where: { id: storyId },

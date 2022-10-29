@@ -9,11 +9,13 @@ export type ListNoticesQuery = {
 
 export async function listNoticesAPI(query: ListNoticesQuery) {
   const queryString = qs.stringify(query);
-  const response = await axios.get<Array<Notice>>(`/notices?${queryString}`);
+  const response = await axios.get<Array<Notice>>(
+    `/api/notices?${queryString}`
+  );
   return response.data;
 }
 
 export async function readNoticeAPI(id: number) {
-  const response = await axios.get<Notice>(`/notices/${id}`);
+  const response = await axios.get<Notice>(`/api/notices/${id}`);
   return response.data;
 }

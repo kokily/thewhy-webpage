@@ -17,7 +17,7 @@ export default function Notices({ notices, onReadNotice }: Props) {
         </tr>
       </thead>
       <tbody>
-        {notices.length === 0 || notices.length === 1 ? (
+        {notices.length === 0 ? (
           <tr>
             <td style={{ textAlign: 'center' }} colSpan={3}>
               작성된 공지사항이 없습니다.
