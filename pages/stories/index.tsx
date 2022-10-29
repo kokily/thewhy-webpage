@@ -22,8 +22,19 @@ const ListStoriesPage: NextPage<Props> = ({ description }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const tag = query.tag as string;
+
+  let where = tag
+    ? {
+        tags: {
+          has: tag,
+        },
+      }
+    : undefined;
+
   const stories = await db.story.findMany({
+    where,
     take: 25,
     orderBy: {
       createdAt: 'desc',

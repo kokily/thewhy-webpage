@@ -15,7 +15,7 @@ export default function useListStories() {
   const [tag, setTag] = useState('');
   const { data, fetchNextPage, refetch } = useInfiniteQuery(
     'listStories',
-    ({ pageParam }) => listStoresAPI({ cursor: pageParam, title: search }),
+    ({ pageParam }) => listStoresAPI({ cursor: pageParam, title: search, tag }),
     {
       getNextPageParam: (data) =>
         data && data.length === 12 ? data[data.length - 1].id : undefined,
