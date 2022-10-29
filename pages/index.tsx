@@ -51,10 +51,12 @@ const Home: NextPage = () => {
   ];
 
   return (
-    <PageTemplate>
-      <HomeImages slides={slides} />
-      <HomeLinks links={links} />
-    </PageTemplate>
+    <>
+      <PageTemplate>
+        <HomeImages slides={slides} />
+        <HomeLinks links={links} />
+      </PageTemplate>
+    </>
   );
 };
 

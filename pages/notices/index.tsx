@@ -1,48 +1,38 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import PageTemplate from '../../components/common/PageTemplate';
-import ListStories from '../../components/stories/ListStories';
+import ListNotices from '../../components/notices/ListNotices';
 import db from '../../libs/db';
 
 interface Props {
   description: string[];
 }
 
-const ListStoriesPage: NextPage<Props> = ({ description }) => {
+const ListNoticesPage: NextPage<Props> = ({ description }) => {
   return (
     <>
       <NextSeo
-        title="The Y 이야기"
+        title="공지사항 - 더와이컨설팅"
         description={description ? description.toString() : undefined}
-        canonical="https://thewhy.kr/stories"
+        canonical="https://thewhy.kr/notices"
       />
+
       <PageTemplate>
-        <ListStories />
+        <ListNotices />
       </PageTemplate>
     </>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const tag = query.tag as string;
-
-  let where = tag
-    ? {
-        tags: {
-          has: tag,
-        },
-      }
-    : undefined;
-
-  const stories = await db.story.findMany({
-    where,
+export const getServerSideProps: GetServerSideProps = async () => {
+  const notices = await db.notice.findMany({
     take: 25,
     orderBy: {
       createdAt: 'desc',
     },
   });
-  const description = stories.map((story) => {
-    return story.body
+  const description = notices.map((notice) => {
+    return notice.body
       .replace(/ /gi, '')
       .replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/gi, '')
       .substring(0, 50);
@@ -50,10 +40,10 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   return {
     props: {
-      stories: JSON.parse(JSON.stringify(stories)),
+      notices: JSON.parse(JSON.stringify(notices)),
       description: JSON.parse(JSON.stringify(description)),
     },
   };
 };
 
-export default ListStoriesPage;
+export default ListNoticesPage;

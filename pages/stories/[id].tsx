@@ -1,20 +1,22 @@
 import type { GetServerSideProps, NextPage } from 'next';
+import type { Story } from '@prisma/client';
 import { NextSeo } from 'next-seo';
 import PageTemplate from '../../components/common/PageTemplate';
 import ReadStory from '../../components/stories/ReadStory';
 import db from '../../libs/db';
 
 interface Props {
-  title: string;
+  story: Story;
   description: string[];
 }
 
-const ReadStoryPage: NextPage<Props> = ({ title, description }) => {
+const ReadStoryPage: NextPage<Props> = ({ story, description }) => {
   return (
     <>
       <NextSeo
-        title={`${title} - 더와이컨설팅`}
+        title={`${story.title} - 더와이컨설팅`}
         description={description ? description.toString() : undefined}
+        canonical={`https://thewhy.kr/stories/${story.id}`}
       />
 
       <PageTemplate>
@@ -36,7 +38,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   return {
     props: {
-      title: JSON.parse(JSON.stringify(story.title)),
+      story: JSON.parse(JSON.stringify(story)),
       description: JSON.parse(JSON.stringify(description)),
     },
   };
