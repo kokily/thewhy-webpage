@@ -2,23 +2,17 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import type { Question } from '@prisma/client';
 import db from '../../../libs/db';
 
-export type ListQuestionQuery = {
-  title?: string;
-  username?: string;
-  phone?: string;
-  email?: string;
-  cursor?: string;
-};
-
 export default async function listQuestionsHandle(
   req: NextApiRequest,
   res: NextApiResponse<Question[]>
 ) {
-  const { title, username, phone, email, cursor }: ListQuestionQuery =
-    req.query;
-
   if (req.method === 'GET') {
-    const cursorObj = cursor === '' ? undefined : { id: cursor };
+    const title = req.query.title as string;
+    const username = req.query.username as string;
+    const phone = req.query.username as string;
+    const email = req.query.email as string;
+    const cursor = req.query.cursor ?? '';
+    const cursorObj = cursor === '' ? undefined : { id: cursor.toString() };
     const limit = 25;
 
     const questions = await db.question.findMany({
